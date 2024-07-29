@@ -76,7 +76,8 @@
 #     gr = GetResults("tasks")
 #     print(gr.get_results(input_text="give me records where task delay is more than 30"))
 
-from chain_of_thought import ChainOfThoughtRAG, set_llm
+import re
+from chain_of_thought import ChainOfThoughtRAG, set_llm, ChainOfThoughtSQLCorrect
 import dspy
 import sqlite3
 import pandas as pd
@@ -111,6 +112,7 @@ class GetResults:
         self.db_path = os.path.join(os.getcwd(), f"{self.label}.db")
         self.query_db = QueryDatabase(self.db_path)
     
+    
     def get_results(self, input_text):
         if self.label == "tasks":
             context = """table name: tasks
@@ -137,18 +139,26 @@ class GetResults:
             """
 
         cot = ChainOfThoughtRAG(1, table_context=context)
+        sql_fix = ChainOfThoughtSQLCorrect(1, table_context=context)
         answer = cot(input_text).answer
-        print(answer)
+        print(f"Given answer {answer}")
+        answer = sql_fix(answer).answer
+        print(f"SQL Corrected Given answer {answer}")
         
         if isinstance(answer, list):
             answer = answer[0]
         
+        answer = answer.replace('`','').replace('sql', '')
+        print(f"Final answer {answer}")
+
         final_answer = self.query_db.execute_sql(answer)
         print(final_answer)
         final_answer = final_answer.to_json()
         return final_answer
+        
 
 if __name__ == "__main__":
+
     gr = GetResults("milestones")
     print(gr.get_results(input_text="give me records where milestone status is 'Completed'"))
 

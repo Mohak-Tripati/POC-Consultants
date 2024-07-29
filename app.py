@@ -3,7 +3,8 @@ import json
 import openai
 import pandas as pd
 from flask import Flask, request, render_template
-from get_results import GetResults
+# from get_results import GetResults
+from get_results1 import GetResults
 
 
 app = Flask(__name__)
