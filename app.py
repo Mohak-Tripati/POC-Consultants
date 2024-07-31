@@ -12,7 +12,7 @@ from flask_cors import CORS  # Import CORS
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": [ "http://localhost:3003", "http://127.0.0.1:3003" ]}})  # Enable CORS for all routes
+CORS(app, resources={r"/*": {"origins": [ "http://localhost:3003", "http://127.0.0.1:3003", "https://main.dbjnrfke1zuu7.amplifyapp.com", "https://staging.dbjnrfke1zuu7.amplifyapp.com" ]}})  # Enable CORS for all routes
 
 @app.route('/')
 def index():
