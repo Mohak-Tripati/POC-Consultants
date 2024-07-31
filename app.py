@@ -3,7 +3,7 @@ import json
 from dotenv import load_dotenv
 import openai
 import pandas as pd
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 # from get_results import GetResults
 from get_results1 import GetResults
 from flask_cors import CORS  # Import CORS
@@ -12,7 +12,7 @@ from flask_cors import CORS  # Import CORS
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, resources={r"/*": {"origins": [ "http://localhost:3003", "http://127.0.0.1:3003" ]}})  # Enable CORS for all routes
 
 @app.route('/')
 def index():
@@ -23,6 +23,10 @@ def get_results():
     req = request.get_json()
     gr = GetResults(label=req['db_name'])
     result=gr.get_results(input_text= req['query'])
+    response = jsonify(result)
+    response.headers.add('Access-Control-Allow-Origin', '*')  # Change '*' to specific origin if needed
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     return result
 
 if __name__ == '__main__':
