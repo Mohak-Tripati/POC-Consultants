@@ -1,6 +1,11 @@
 from data_reader import excel_reader
 import dspy
 import os
+from dotenv import load_dotenv
+
+# dotenv
+load_dotenv()
+
 # os.environ['LLM_API_KEY']=""
 # api_key = os.getenv('OPENAI_API_KEY')
 os.environ['LLM_API_KEY']=os.getenv('OPENAI_API_KEY')

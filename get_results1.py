@@ -116,18 +116,35 @@ class GetResults:
     def get_results(self, input_text):
         if self.label == "tasks":
             context = """table name: tasks
-            Column name Status : ['To Do', 'In Progress', 'Terminated/Cancelled', 'Development',
+            Column name status : ['To Do', 'In Progress', 'Terminated/Cancelled', 'Development',
             'Development Complete', 'Done', 'Ready for QC', 'Discovery Phase',
             'QA level 1 Completed', 'QC Passed', 'QA Completed', 'Hold',
             'QA level 2 in progress']
-            Other column names: ['Task ID', 'Task Name', 'Owner', 'Priority', 'Start Date', 'Due Date',
-            'Created Time', 'Status', 'Is Overdue', 'Completion Percentage',
-            'Project Name', 'Milestone Name', 'Project ID', 'Milestone ID',
-            'Parent Task ID', 'Created By ID', 'Owner IDs', 'Task Delay Time',
-            'Task Completion Mode', 'Actual Time Taken', 'Time Spent So Far',
-            'Duration_1', 'Duration Unit', 'Rate Per Hour', 'Clarity Level',
-            'QC Owner']
+            Other column names: [
+                    'task_id', 'task_name', 'owner', 'priority', 'start_date', 'due_date',
+                    'created_time', 'duration', 'status', 'is_overdue', 'completion_percentage',
+                    'project_name', 'milestone_name', 'project_id', 'milestone_id',
+                    'task_delay_time', 'task_completion_mode', 'actual_time_taken', 'time_spent_so_far',
+                    'duration_1', 'duration_unit', 'clarity_level', 'sprint', 'billing_type',
+                    'product_skill', 'sprint_ff_sf', 'open_closed', 'allocated_unallocated',
+                    'days_completed_on', 'sprint_new', 'completion_date', 'qc_owner'
+                ]
             """
+            # ! prev context
+            # context = """table name: tasks
+            # Column name Status : ['To Do', 'In Progress', 'Terminated/Cancelled', 'Development',
+            # 'Development Complete', 'Done', 'Ready for QC', 'Discovery Phase',
+            # 'QA level 1 Completed', 'QC Passed', 'QA Completed', 'Hold',
+            # 'QA level 2 in progress']
+            # Other column names: ['Task ID', 'Task Name', 'Owner', 'Priority', 'Start Date', 'Due Date',
+            # 'Created Time', 'Status', 'Is Overdue', 'Completion Percentage',
+            # 'Project Name', 'Milestone Name', 'Project ID', 'Milestone ID',
+            # 'Parent Task ID', 'Created By ID', 'Owner IDs', 'Task Delay Time',
+            # 'Task Completion Mode', 'Actual Time Taken', 'Time Spent So Far',
+            # 'Duration_1', 'Duration Unit', 'Rate Per Hour', 'Clarity Level',
+            # 'QC Owner']
+            # """
+             # ! prev context
         elif self.label == 'milestones':
             context = """table name: milestones
             Column name Milestone Status  : ['Upcoming', 'Overdue', 'Completed']
