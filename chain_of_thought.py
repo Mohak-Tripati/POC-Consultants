@@ -1,7 +1,7 @@
 from data_reader import excel_reader
 import dspy
 import os
-os.environ['LLM_API_KEY']="sk-proj-A54Gi4WeRTaqHX8J9vIqT3BlbkFJrq8RoCQl05UqNuiR9Q5S"
+os.environ['LLM_API_KEY']="sk-proj-pAuja4b6riHg83fAAJCAT3BlbkFJXCigfNM6XQGUltVjDdqh"
 os.environ['MODEL_NAME']="gpt-3.5-turbo"
 # tasks_path = ""
 # tasks=excel_reader(tasks_path)
