@@ -1,11 +1,14 @@
 import requests
 import json
+from dotenv import load_dotenv
 import openai
 import pandas as pd
 from flask import Flask, request, render_template
 # from get_results import GetResults
 from get_results1 import GetResults
 
+# dotenv
+load_dotenv()
 
 app = Flask(__name__)
 

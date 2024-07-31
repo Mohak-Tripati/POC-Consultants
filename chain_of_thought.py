@@ -2,8 +2,8 @@ from data_reader import excel_reader
 import dspy
 import os
 # os.environ['LLM_API_KEY']=""
-api_key = os.getenv('OPENAI_API_KEY')
-os.environ['LLM_API_KEY']=api_key
+# api_key = os.getenv('OPENAI_API_KEY')
+os.environ['LLM_API_KEY']=os.getenv('OPENAI_API_KEY')
 os.environ['MODEL_NAME']="gpt-3.5-turbo"
 # tasks_path = ""
 # tasks=excel_reader(tasks_path)
