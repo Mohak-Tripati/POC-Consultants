@@ -18,6 +18,10 @@ CORS(app, resources={r"/*": {"origins": [ "http://localhost:3003", "http://127.0
 def index():
     return render_template('index.html')
 
+@app.route('/healthcheck')
+def healthcheck():
+    return jsonify(status="ok"), 200
+
 @app.route('/query', methods=['POST'])
 def get_results():
     req = request.get_json()
