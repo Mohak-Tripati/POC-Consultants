@@ -105,6 +105,8 @@ PORT = os.getenv('PORT')
 # DATABASE_DB = "python_test_poc"
 # PORT = 5432
 
+
+# try: 
 # Connect to PostgreSQL
 conn = psycopg2.connect(
     dbname=DATABASE_DB,
@@ -113,9 +115,6 @@ conn = psycopg2.connect(
     host=DATABASE_HOST,
     port=PORT
 )
-
-# Create a cursor object
-cur = conn.cursor()
 
 # Function to fetch data using SQL query
 def fetch_data(conn, query):
