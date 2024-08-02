@@ -126,6 +126,7 @@ def fetch_data(conn, query):
         return colnames, rows
     except psycopg2.Error as e:
         print(f"Error executing query: {e}")
+        conn.rollback()
         return [], []
     finally:
         cur.close()
@@ -181,6 +182,7 @@ class GetResults:
     
     
     def get_results(self, input_text):
+        print(f"User Input: {input_text}")
         # if self.label == "postgres":
         context = """
             
@@ -207,9 +209,9 @@ class GetResults:
             - `user_id`: integer, Unique identifier for the user. Auto-incremented.
             - `user_name`: character varying(255), Name of the user. Must be unique.
             - `user_email`: character varying(255), Email address of the user.
-            - `role`: character varying(50), Role of the user (e.g., Admin, User).
-            - `profile`: character varying(50), Profile type or description.
-            - `status`: character varying(50), Status of the user (e.g., Active, Inactive).
+            - `role`: character varying(50), Role of the user (e.g., Administrator, Delivery Master).
+            - `profile`: character varying(50), Profile type or description (eg., Admin, Manager).
+            - `status`: character varying(50), Status of the user (e.g., active, disabled).
 
             #### Table: projects
             - **Columns:**
