@@ -85,6 +85,7 @@ import json
 import os
 from sqlalchemy import create_engine
 import psycopg2
+from psycopg2 import sql, errors
 from dotenv import load_dotenv
 
 # dotenv
@@ -104,24 +105,35 @@ PORT = os.getenv('PORT')
 # DATABASE_DB = "python_test_poc"
 # PORT = 5432
 
-# Connect to PostgreSQL
-conn = psycopg2.connect(
-    dbname=DATABASE_DB,
-    user=DATABASE_USERNAME,
-    password=DATABASE_PASSWORD,
-    host=DATABASE_HOST,
-    port=PORT
-)
 
-# Create a cursor object
-cur = conn.cursor()
+try: 
+    # Connect to PostgreSQL
+    conn = psycopg2.connect(
+        dbname=DATABASE_DB,
+        user=DATABASE_USERNAME,
+        password=DATABASE_PASSWORD,
+        host=DATABASE_HOST,
+        port=PORT
+    )
 
-# Function to fetch data using SQL query
-def fetch_data(query):
-    cur.execute(query)
-    rows = cur.fetchall()
-    columns = [desc[0] for desc in cur.description]
-    return columns, rows
+    # Create a cursor object
+    cur = conn.cursor()
+
+    # Function to fetch data using SQL query
+    def fetch_data(query):
+        cur.execute(query)
+        rows = cur.fetchall()
+        columns = [desc[0] for desc in cur.description]
+        return columns, rows
+    
+except (Exception, psycopg2.DatabaseError) as error:
+    print(f"Error: {error}")
+    # Rollback in case of error
+    conn.rollback()
+    if conn:
+        conn.close()
+finally:
+    pass
 
 # QueryDatabase class definition
 # class QueryDatabase: # ! db starts here
@@ -419,6 +431,11 @@ class GetResults:
         # Convert DataFrames to JSON objects
         # json_schema_data = {table: df.to_json(orient='records') for table, df in df_schema_data.items()}
         json_completed_tasks = df_completed_tasks.to_json(orient='records')
+        
+        # * database closed
+        # cur.close()
+        # conn.close()
+        
         # print(json_completed_tasks)
         # final_answer = final_answer # ! json is being build here
         # final_answer_dict = {"data": final_answer}
