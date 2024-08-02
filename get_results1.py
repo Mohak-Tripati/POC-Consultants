@@ -123,12 +123,13 @@ def fetch_data(conn, query):
         cur.execute(query)
         rows = cur.fetchall()
         colnames = [desc[0] for desc in cur.description]
-        cur.close()
         return colnames, rows
     except psycopg2.Error as e:
         print(f"Error executing query: {e}")
-        cur.close()
         return [], []
+    finally:
+        cur.close()
+        
 
 # try: 
 #     # Function to fetch data using SQL query
